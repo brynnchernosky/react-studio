@@ -1,9 +1,12 @@
-import logo from "./logo.svg";
-import "./App.css";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import Snackbar from "@mui/material/Snackbar";
 import { useState } from "react";
+import "./App.css";
 
 function App() {
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState(new Map());
   // object with item name, item price, and item count
 
   const macaronList = [
@@ -51,32 +54,32 @@ function App() {
 
   const profiteroleList = [
     {
-      item: "Classic",
+      item: "Classic Profiterole",
       image: "Vanilla.png",
       price: 4,
       description: "Our classic vanilla profiterole.",
     },
     {
-      item: "Chocolate",
+      item: "Chocolate Profiterole",
       image: "Chocolate.png",
       price: 4,
       description: "Our classic profiterole with chocolate glaze.",
     },
     {
-      item: "Green Tea",
+      item: "Green Tea Profiterole",
       image: "GreenTea.png",
       price: 4,
       description: "Our classic profiterole with green tea glaze.",
     },
 
     {
-      item: "Strawberry",
+      item: "Strawberry Profiterole",
       image: "Strawberry.jpeg",
       price: 4,
       description: "Our classic profiterole with strawberry glaze.",
     },
     {
-      item: "Oreo",
+      item: "Oreo Profiterole",
       image: "Oreo.png",
       price: 4,
       description:
@@ -84,13 +87,43 @@ function App() {
     },
   ];
 
+  const [notificationItem, setNotificationItem] = useState("");
+  const [notificationOpen, setNotificationOpen] = useState(false);
+  const [cartOpen, setCartOpen] = useState(false);
+
+  const fullMenu = profiteroleList + macaronList;
+
+  const addToCart = (itemName, itemPrice) => {
+    setNotificationItem(itemName);
+    const items = cartItems;
+    if (items.has(itemName)) {
+      items.set(itemName, {
+        price: itemPrice,
+        quantity: cartItems.get(itemName).quantity + 1,
+      });
+    } else {
+      items.set(itemName, { price: itemPrice, quantity: 1 });
+    }
+    setCartItems(items);
+    setNotificationOpen(true);
+    console.log(items);
+  };
+
+  let totalPrice = 0;
+
   return (
     <div className="App">
       <div className="header">
         <h1>CS1300 Bakery</h1>
+        <IconButton
+          onClick={() => setCartOpen(!cartOpen)}
+          style={{ position: "fixed", left: "95vw" }}
+        >
+          {cartOpen ? <CloseIcon /> : <ShoppingCartIcon />}
+        </IconButton>
       </div>
       <div className="contentWrapper">
-        <div className="menu">
+        <div className={cartOpen ? "menu-cartOpen" : "menu"}>
           <h2>Macarons</h2>
           <div className="row">
             {macaronList.map((item, i) => {
@@ -100,7 +133,12 @@ function App() {
                   <div className="menuItemContent">
                     <div className="menuItemHeader">
                       <h3>{item.item}</h3>
-                      <button className="addToCartButton">+</button>
+                      <button
+                        className="addToCartButton"
+                        onClick={() => addToCart(item.item, item.price)}
+                      >
+                        +
+                      </button>
                     </div>
                     <p>${item.price}</p>
                     <p>{item.description}</p>
@@ -119,7 +157,12 @@ function App() {
                   <div className="menuItemContent">
                     <div className="menuItemHeader">
                       <h3>{item.item}</h3>
-                      <button className="addToCartButton">+</button>
+                      <button
+                        className="addToCartButton"
+                        onClick={() => addToCart(item.item, item.price)}
+                      >
+                        +
+                      </button>
                     </div>
                     <p>${item.price}</p>
                     <p>{item.description}</p>
@@ -131,7 +174,40 @@ function App() {
           <br />
           <br />
         </div>
-        <div className="cart"></div>
+        {cartOpen && (
+          <div className="cart">
+            {cartItems.size > 0 &&
+              Array.from(cartItems).map((item, i) => {
+                if (i == 0) {
+                  totalPrice = 0;
+                }
+                totalPrice += item[1].quantity * item[1].price;
+                return (
+                  <div className="cartItem" key={i}>
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <div>
+                        <p>{item[0]}</p>
+                        <p>Quantity: {item[1].quantity}</p>
+                      </div>
+                      <p>${item[1].quantity * item[1].price}</p>
+                    </div>
+                  </div>
+                );
+              })}
+            <div className="cartSummary">Total: ${totalPrice}</div>
+          </div>
+        )}
+        <Snackbar
+          open={notificationOpen}
+          autoHideDuration={2000}
+          onClose={setNotificationOpen}
+          message={notificationItem + " added to cart"}
+        />
       </div>
     </div>
   );
