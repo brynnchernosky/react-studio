@@ -3,6 +3,7 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Snackbar from "@mui/material/Snackbar";
 import { useState } from "react";
+import Badge from "@mui/joy/Badge";
 import "./App.css";
 
 function App() {
@@ -106,10 +107,11 @@ function App() {
     }
     setCartItems(items);
     setNotificationOpen(true);
-    console.log(items);
+    setNumItems(numItems + 1);
   };
 
   let totalPrice = 0;
+  const [numItems, setNumItems] = useState(0);
 
   return (
     <div className="App">
@@ -119,7 +121,18 @@ function App() {
           onClick={() => setCartOpen(!cartOpen)}
           style={{ position: "fixed", left: "95vw" }}
         >
-          {cartOpen ? <CloseIcon /> : <ShoppingCartIcon />}
+          {cartOpen ? (
+            <CloseIcon />
+          ) : (
+            <Badge
+              variant="solid"
+              color="primary"
+              badgeContent={numItems}
+              max={10}
+            >
+              <ShoppingCartIcon />
+            </Badge>
+          )}
         </IconButton>
       </div>
       <div className="contentWrapper">

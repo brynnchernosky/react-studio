@@ -126,3 +126,8 @@ a {
 p {
   font-size: 16px;
 }
+
+.MuiBadge-badge {
+  color: "yellow";
+  background-color: "#686868";
+}
