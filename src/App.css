@@ -39,15 +39,16 @@ a {
 .contentWrapper {
   display: flex;
   margin-left: 10vw;
-  width: 90vw;
+  width: 80vw;
   margin-right: 10vw;
+  height: 100%;
+  overflow-y: scroll;
 }
 
 .menu {
-  overflow-y: scroll;
   display: flex;
   flex-direction: column;
-  width: 70vw;
+  overflow-x: hidden;
 }
 
 .row {
@@ -71,6 +72,8 @@ a {
   min-width: 300px;
   max-width: 300px;
   height: 370px;
+  min-height: 370px;
+  max-height: 370px;
   border-style: solid;
   border-width: 10px;
   border-color: rgb(252, 244, 209);
@@ -80,7 +83,6 @@ a {
 
 .menuItemImage {
   height: 70%;
-  overflow: hidden;
 }
 
 .menuItemContent {

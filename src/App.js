@@ -49,6 +49,41 @@ function App() {
     },
   ];
 
+  const profiteroleList = [
+    {
+      item: "Classic",
+      image: "Vanilla.png",
+      price: 4,
+      description: "Our classic vanilla profiterole.",
+    },
+    {
+      item: "Chocolate",
+      image: "Chocolate.png",
+      price: 4,
+      description: "Our classic profiterole with chocolate glaze.",
+    },
+    {
+      item: "Green Tea",
+      image: "GreenTea.png",
+      price: 4,
+      description: "Our classic profiterole with green tea glaze.",
+    },
+
+    {
+      item: "Strawberry",
+      image: "Strawberry.jpeg",
+      price: 4,
+      description: "Our classic profiterole with strawberry glaze.",
+    },
+    {
+      item: "Oreo",
+      image: "Oreo.png",
+      price: 4,
+      description:
+        "Our classic profiterole with vanilla glaze and Oreo crumbles.",
+    },
+  ];
+
   return (
     <div className="App">
       <div className="header">
@@ -58,22 +93,43 @@ function App() {
         <div className="menu">
           <h2>Macarons</h2>
           <div className="row">
-            {macaronList.map((macaron, i) => {
+            {macaronList.map((item, i) => {
               return (
                 <div className="menuItem" key={i}>
-                  <img className="menuItemImage" src={macaron.image} />
+                  <img className="menuItemImage" src={item.image} />
                   <div className="menuItemContent">
                     <div className="menuItemHeader">
-                      <h3>{macaron.item}</h3>
+                      <h3>{item.item}</h3>
                       <button className="addToCartButton">+</button>
                     </div>
-                    <p>${macaron.price}</p>
-                    <p>{macaron.description}</p>
+                    <p>${item.price}</p>
+                    <p>{item.description}</p>
                   </div>
                 </div>
               );
             })}
           </div>
+          <br />
+          <h2>Profiteroles</h2>
+          <div className="row">
+            {profiteroleList.map((item, i) => {
+              return (
+                <div className="menuItem" key={i}>
+                  <img className="menuItemImage" src={item.image} />
+                  <div className="menuItemContent">
+                    <div className="menuItemHeader">
+                      <h3>{item.item}</h3>
+                      <button className="addToCartButton">+</button>
+                    </div>
+                    <p>${item.price}</p>
+                    <p>{item.description}</p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          <br />
+          <br />
         </div>
         <div className="cart"></div>
       </div>
