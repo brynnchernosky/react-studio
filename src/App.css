@@ -1,38 +1,99 @@
-.App {
-  text-align: center;
+/* Start CSS reset code from lecture */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+* {
+  margin: 0;
+  font-family: "Arial";
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+a {
+  color: blue;
+  text-decoration: underline;
+}
+/* End CSS reset code from lecture */
+
+.header {
+  display: flex;
+  margin: 2vw;
+}
+
+.contentWrapper {
+  display: flex;
+  margin-left: 10vw;
+  width: 90vw;
+  margin-right: 10vw;
+}
+
+.menu {
+  overflow-y: scroll;
   display: flex;
   flex-direction: column;
+  width: 70vw;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  overflow-x: scroll;
+}
+
+.menuItemHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.cart {
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.menuItem {
+  width: 250px;
+  min-width: 300px;
+  max-width: 300px;
+  height: 370px;
+  border-style: solid;
+  border-width: 10px;
+  border-color: rgb(252, 244, 209);
+  border-radius: 15px;
+  margin-left: 10px;
+}
+
+.menuItemImage {
+  height: 70%;
+  overflow: hidden;
+}
+
+.menuItemContent {
+  background-color: rgb(252, 244, 209);
+  height: 30%;
+  padding: 7px;
+}
+
+.addToCartButton {
+  width: 30px;
+  height: 25px;
+}
+
+p {
+  font-size: 16px;
 }
