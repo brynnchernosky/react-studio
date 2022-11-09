@@ -4,6 +4,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import Snackbar from "@mui/material/Snackbar";
 import { useState } from "react";
 import Badge from "@mui/joy/Badge";
+import TextField from "@mui/material/TextField";
 import "./App.css";
 
 function App() {
@@ -72,19 +73,18 @@ function App() {
       price: 4,
       description: "Our classic profiterole with green tea glaze.",
     },
-
-    {
-      item: "Strawberry Profiterole",
-      image: "Strawberry.jpeg",
-      price: 4,
-      description: "Our classic profiterole with strawberry glaze.",
-    },
     {
       item: "Oreo Profiterole",
       image: "Oreo.png",
       price: 4,
       description:
         "Our classic profiterole with vanilla glaze and Oreo crumbles.",
+    },
+    {
+      item: "Strawberry Profiterole",
+      image: "Strawberry.jpeg",
+      price: 4,
+      description: "Our classic profiterole with strawberry glaze.",
     },
   ];
 
@@ -100,7 +100,7 @@ function App() {
     if (items.has(itemName)) {
       items.set(itemName, {
         price: itemPrice,
-        quantity: cartItems.get(itemName).quantity + 1,
+        quantity: Number(cartItems.get(itemName).quantity) + 1,
       });
     } else {
       items.set(itemName, { price: itemPrice, quantity: 1 });
@@ -108,6 +108,24 @@ function App() {
     setCartItems(items);
     setNotificationOpen(true);
     setNumItems(numItems + 1);
+  };
+
+  const setNumberInCart = (itemName, count) => {
+    console.log(count);
+    const changeInQuantity = count - cartItems.get(itemName).quantity;
+    const items = cartItems;
+    if (items.has(itemName)) {
+      if (count > 1) {
+        items.set(itemName, {
+          price: cartItems.get(itemName).price,
+          quantity: count,
+        });
+      } else {
+        items.delete(itemName);
+      }
+    }
+    setNumItems(numItems + changeInQuantity);
+    setCartItems(items);
   };
 
   let totalPrice = 0;
@@ -142,7 +160,9 @@ function App() {
             {macaronList.map((item, i) => {
               return (
                 <div className="menuItem" key={i}>
-                  <img className="menuItemImage" src={item.image} />
+                  <div className="menuItemImageWrapper">
+                    <img className="menuItemImage" src={item.image} />
+                  </div>
                   <div className="menuItemContent">
                     <div className="menuItemHeader">
                       <h3>{item.item}</h3>
@@ -189,6 +209,7 @@ function App() {
         </div>
         {cartOpen && (
           <div className="cart">
+            <h2>Items in your shopping cart</h2>
             {cartItems.size > 0 &&
               Array.from(cartItems).map((item, i) => {
                 if (i == 0) {
@@ -205,14 +226,34 @@ function App() {
                     >
                       <div>
                         <p>{item[0]}</p>
-                        <p>Quantity: {item[1].quantity}</p>
+                        <div className="quantityRow">
+                          <p style={{ marginRight: "5px" }}>Quantity</p>
+                          <TextField
+                            type="number"
+                            size="small"
+                            value={item[1].quantity}
+                            sx={{ width: "5em" }}
+                            inputProps={{
+                              inputMode: "numeric",
+                              pattern: "[0-9]*",
+                            }}
+                            onChange={(e) => {
+                              const regex = /^[0-9\b]+$/;
+                              if (regex.test(e.target.value)) {
+                                setNumberInCart(item[0], e.target.value);
+                              }
+                            }}
+                          />
+                        </div>
                       </div>
                       <p>${item[1].quantity * item[1].price}</p>
                     </div>
                   </div>
                 );
               })}
-            <div className="cartSummary">Total: ${totalPrice}</div>
+            <div className="cartSummary">
+              <strong>Total: ${totalPrice}</strong>
+            </div>
           </div>
         )}
         <Snackbar

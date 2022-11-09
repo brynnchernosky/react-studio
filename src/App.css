@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Suranna&display=swap");
+
 /* Start CSS reset code from lecture */
 
 *,
@@ -8,7 +10,8 @@
 
 * {
   margin: 0;
-  font-family: "Arial";
+  font-family: "Suranna", "Times";
+  line-height: 1;
 }
 
 img,
@@ -37,6 +40,10 @@ a {
   justify-content: space-between;
 }
 
+body {
+  background-color: rgb(251, 216, 245);
+}
+
 .contentWrapper {
   display: flex;
   margin-left: 10vw;
@@ -57,13 +64,20 @@ a {
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
-  width: 70%;
+  width: 75%;
 }
 
 .row {
   display: flex;
   flex-direction: row;
   overflow-x: scroll;
+  overflow-y: hidden;
+}
+
+.quantityRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .menuItemHeader {
@@ -74,9 +88,13 @@ a {
 }
 
 .cart {
-  width: 30%;
   position: fixed;
-  left: 70vw;
+  right: 0;
+  margin-right: 30px;
+  padding: 10px;
+  background-color: white;
+  max-height: 80vh;
+  overflow-y: scroll;
 }
 
 .cartItem {
@@ -91,7 +109,16 @@ a {
 }
 
 .cartSummary {
-  height: 100px;
+  height: 50px;
+  text-align: right;
+  min-width: 280px;
+  max-width: 280px;
+  border-style: solid;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+  background-color: rgb(252, 244, 209);
+  border-color: rgb(252, 244, 209);
 }
 
 .menuItem {
@@ -106,10 +133,19 @@ a {
   border-color: rgb(252, 244, 209);
   border-radius: 15px;
   margin-left: 10px;
+  background-color: white;
 }
 
 .menuItemImage {
-  height: 70%;
+  height: 259px;
+}
+
+.menuItemImageWrapper {
+  height: 259px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 
 .menuItemContent {
@@ -125,9 +161,4 @@ a {
 
 p {
   font-size: 16px;
-}
-
-.MuiBadge-badge {
-  color: "yellow";
-  background-color: "#686868";
 }
