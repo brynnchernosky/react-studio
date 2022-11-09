@@ -1,6 +1,7 @@
 {
   "name": "react-studio",
   "version": "0.1.0",
+  "homepage": "https://brynnchernosky.github.io/react-studio/",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.5",

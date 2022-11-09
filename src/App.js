@@ -5,6 +5,7 @@ import Snackbar from "@mui/material/Snackbar";
 import { useState } from "react";
 import Badge from "@mui/joy/Badge";
 import TextField from "@mui/material/TextField";
+import { MenuSection } from "./MenuSection";
 import "./App.css";
 
 function App() {
@@ -155,55 +156,17 @@ function App() {
       </div>
       <div className="contentWrapper">
         <div className={cartOpen ? "menu-cartOpen" : "menu"}>
-          <h2>Macarons</h2>
-          <div className="row">
-            {macaronList.map((item, i) => {
-              return (
-                <div className="menuItem" key={i}>
-                  <div className="menuItemImageWrapper">
-                    <img className="menuItemImage" src={item.image} />
-                  </div>
-                  <div className="menuItemContent">
-                    <div className="menuItemHeader">
-                      <h3>{item.item}</h3>
-                      <button
-                        className="addToCartButton"
-                        onClick={() => addToCart(item.item, item.price)}
-                      >
-                        +
-                      </button>
-                    </div>
-                    <p>${item.price}</p>
-                    <p>{item.description}</p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+          <MenuSection
+            title={"Macarons"}
+            list={macaronList}
+            addToCart={addToCart}
+          />
           <br />
-          <h2>Profiteroles</h2>
-          <div className="row">
-            {profiteroleList.map((item, i) => {
-              return (
-                <div className="menuItem" key={i}>
-                  <img className="menuItemImage" src={item.image} />
-                  <div className="menuItemContent">
-                    <div className="menuItemHeader">
-                      <h3>{item.item}</h3>
-                      <button
-                        className="addToCartButton"
-                        onClick={() => addToCart(item.item, item.price)}
-                      >
-                        +
-                      </button>
-                    </div>
-                    <p>${item.price}</p>
-                    <p>{item.description}</p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+          <MenuSection
+            title={"Profiteroles"}
+            list={profiteroleList}
+            addToCart={addToCart}
+          />
           <br />
           <br />
         </div>
